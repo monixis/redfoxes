@@ -70,6 +70,120 @@ class discussion_model extends CI_Model
 		}
 	}
 
+	/**
+	 * get email ID based on category
+	 */
+	public function getEmailId($data){
+        //get email id based on category
+        $condition = 'category='."'".$data['category']."'";
+        $this->db->select('*');
+        $this->db->from('email');
+        $this->db->where($condition);
+        $eidquery = $this->db->get();
+        $ret = $eidquery->row();
+        $emailID = 	$ret->emailID;
+        if($eidquery->num_rows() > 0){
+            return  $emailID;
+        }
+	}
+
+	//get discussion id for newly inserted record - needed for email function
+    public function getDId($data){
+        $condition = 'd_num='."'".$data['ds_num']."'";
+        $this->db->select('*');
+        $this->db->from('discussion');
+        $this->db->where($condition);
+        $didquery = $this->db->get();
+        $ret = $didquery->row();
+        $d_id = $ret->d_id;
+        if($didquery->num_rows() > 0){
+            return $d_id;
+        }
+
+	}
+	
+	//Get email flag based on category
+	public function getMailFlag($category){
+		$condition = 'category='."'".$category."'";
+        $this->db->select('*');
+        $this->db->from('email');
+        $this->db->where($condition);
+        $eidquery = $this->db->get();
+        $ret = $eidquery->row();
+        $flag = 	$ret->flag;
+        if($eidquery->num_rows() > 0){
+            return  $flag;
+        }
+	}
+
+	/*
+     * find email -
+     * first need to find the category
+     * from category, find email iD
+     */
+    public function find_email($dnum){
+        //function to fetch discussions details from the database
+        $condition = 'd_num='."'".$dnum."'".' OR '.'d_id='."'".$dnum."'";
+        $this->db->select('*');
+        $this->db->from('discussion');
+        $this->db->where($condition);
+        //$this->db->limit(1);
+        $query = $this->db->get();
+        $ret = $query->row();
+        $cat = 	$ret->category;
+        //var_dump($val);
+
+
+        $condition = 'category='."'".$cat."'";
+        $this->db->select('*');
+        $this->db->from('email');
+        $this->db->where($condition);
+        //$this->db->limit(1);
+        $emailquery = $this->db->get();
+        $ret = $emailquery->row();
+        $emailID = 	$ret->emailID;
+
+        if($emailquery->num_rows() == 1) {
+            return $emailID;
+        } else {
+            return false;
+        }
+	}
+
+	/*
+     * find email flag -
+     * first need to find the category
+     * from category, find email iD
+     */
+    public function find_mail_flag($dnum){
+        //function to fetch discussions details from the database
+        $condition = 'd_num='."'".$dnum."'".' OR '.'d_id='."'".$dnum."'";
+        $this->db->select('*');
+        $this->db->from('discussion');
+        $this->db->where($condition);
+        //$this->db->limit(1);
+        $query = $this->db->get();
+        $ret = $query->row();
+        $cat = 	$ret->category;
+        //var_dump($val);
+
+
+        $condition = 'category='."'".$cat."'";
+        $this->db->select('*');
+        $this->db->from('email');
+        $this->db->where($condition);
+        //$this->db->limit(1);
+        $flagquery = $this->db->get();
+        $ret = $flagquery->row();
+        $flag = $ret->flag;
+
+        if($flagquery->num_rows() == 1) {
+            return $flag;
+        } else {
+            return false;
+        }
+    }
+
 	public function fetch_discussion($did){
 		//function to fetch discussions details from the database
 		$condition = 'd_id='."'".$did."'";
