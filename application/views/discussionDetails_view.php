@@ -25,12 +25,43 @@
     color: white;text-decoration: none;
   }
   .easyPaginate a:hover:not(.active) {background-color: #ddd;}
-
+  .foot {
+			text-align: center;
+			color: #333;
+			font-size: 13px;
+			width: 100%;
+		}
+		.foot a:link {
+			color: #333;
+		}
+		.foot a:visited {
+			color: #333;
+		}
+		.foot a:hover {
+			color: #B31B1B;
+    }
+    body {
+      font-family: "Times New Roman", Times, serif;
+      font-size: 1.5em;
+		}
 </style>
 </head>
 <body>
   <div class="container fluid" style="">
     <!--View to show the body of discussions, forums and comments on the discussions -->
+    <?php
+    if(isset($home)){ 
+      //echo '<pre>'. print_r($_SESSION, true) .'</pre>';
+  ?>
+  <div id="navi"  class="container fluid" style="margin-bottom: 30px;">
+			<br /><br />
+			<!--<button type="button" class="btn btn-primary" id="newDiscussion" name="newDiscussion" data-toggle="modal" data-target="#newModal" style="margin-left:0px; margin-bottom:0px;">Start a new Discussion</button>-->
+			<a href="https://login.marist.edu/cas/logout"><button style="float: right;margin-left:14px;" id="logout" type="reset" class="btn btn-primary" style="color:#fff;"><span class="glyphicon glyphicon-log-out"></span> Logout</button></a>
+			<button style="float: right;" id="home" class="btn btn-primary" style="color:#fff;"><span class="glyphicon glyphicon-home"></span> Home</button>
+		</div>
+  <?php
+    }
+  ?>
     <div class="list-group list-group-item">
       <?php if($query->result()) {
       foreach ($query->result() as $result) : $this->input->post($result->d_title,$result->cwid,$result->d_id,$result->d_body); //$d_id=$result->d_id;?>
@@ -79,14 +110,21 @@
                        <input type="text" class="form-control" id="postTitle" placeholder="Title"/>
                    </div>-->
                    <div class="form-group">
-                       <label for="postBody">Post Body</label>
+                       <label for="postBody">Reply</label>
                        <textarea class="form-control" rows="5" id="postBody" placeholder="Enter your message"></textarea>
                        <input type="hidden" id="di_id" value = "<?php echo (isset($result->d_id))?$result->d_id:'';?>" />
                    </div>
                    </form>
           </div>
           <div class="modal-footer">
-            <button style="color:#fff;" type="button" class="btn btn-primary submitBtn" onclick="submitPostForm()" >Submit</button>
+          <?php if(isset($home)){ ?>
+            <button type="button" class="btn btn-primary submitBtn" onclick="submitReplyForm()" >Submit</button>
+          <?php
+          } else { ?>
+            <button type="button" class="btn btn-primary submitBtn" onclick="submitPostForm()" >Submit</button>
+          <?php 
+          } 
+          ?>
             <button style="color:#fff;" type="button" class="btn btn-primary" data-dismiss="modal" id="postcancel" name="postcancel" onclick="commentclose()">Close</button>
           </div>
 
@@ -98,12 +136,84 @@
     </div>
     <!--<?php// echo form_close(); ?>-->
     <script type="text/javascript">
+    $(document).keydown(function(e) { 
+      if (e.keyCode == 27) { 
+        $('.modal-backdrop').remove();
+        $("#postBody").val("");
+        $("#postBody-error").hide();
+        $(".error").removeClass(".my-error-class");
+        $('.submitBtn').attr("enabled","enabled");
+        $('#myModal').modal('hide');
+      } 
+    });
+
+    $("#home").click(function(){
+			window.location.href = '<?php echo base_url() ?>';
+		});
     //$('#postdatatable').DataTable();
     $('#easyPaginate').easyPaginate({
 	      paginateElement: 'li',
 	      elementsPerPage: 5,
 	      effect: 'climb'
 	});
+
+  function submitReplyForm(){
+      var reg = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
+      //var pcwid = $('#pcwid').val();
+      var ptitle = 'default';
+      var pbody = $('#postBody').val();
+      var d_id = $('#di_id').val();
+      if(ptitle.trim() == '' ){
+          alert('Please enter your post title.');
+          //$('#postTitle').focus();
+          return false;
+      }else if(pbody.trim() == '' ){
+          alert('Please enter your message.');
+          $('#postBody').focus();
+          return false;
+      }else{
+        //console.log("finally in else");
+        $.ajax({
+            type:'POST',
+            url:'<?php echo base_url() ?>'+'discussion/addNewPost', //+cwid+'/'+title+'/'+body+'/'+d_id
+            data:{'contactFrmSubmit':'1', 'postTitle' :ptitle, 'postBody':pbody, 'd_id':d_id},
+            dataType: 'text',
+            beforeSend: function () {
+                $('.submitBtn').attr("disabled","disabled");
+                $('.modal-body').css('opacity', '.5');
+            },
+            success:function(msg){
+              if(msg == 'ok'){
+                  $('#postBody').val('');
+                  $('.statusMsg').html('<span style="color:green;">Thanks for contacting us, we\'ll get back to you soon.</p>');
+              }else{
+                  $('.statusMsg').html('<span style="color:red;">Some problem occurred, please try again.</span>');
+              }
+              
+            },
+        }).done(function(){
+          var resultUrl = '<?php echo base_url()?>'+'Discussion/search_discussion/'+d_id;//document.getElementById('getURL').value; //"<?php //echo base_url().'Discussion/discussionDetails/'; ?>"+getdid;
+          console.log(resultUrl);
+          //$('#ddetails').empty();
+          $('#dlist').css('display','none');
+          $('#disclist').css('display','none');
+          $('#ddetails').load(resultUrl);
+          $('#ddetails').css('display','block');
+          $('.modal-backdrop').remove();
+          $("#postBody").val("");
+          $("#postBody-error").hide();
+          $(".error").removeClass(".my-error-class");
+          $('.submitBtn').attr("enabled","enabled");
+          $('#myModal').modal('hide');
+          $('body').removeClass("modal-open");
+          $('body').addClass("modal-close");
+          window.location.reload(true);
+          $('html, body').animate({ scrollTop: 0 }, 0);
+        });		
+      }
+		}
+
+
   function fetchComments(myURL){
     var resultUrl = myURL;//document.getElementById('getURL').value; //"<?php //echo base_url().'Discussion/discussionDetails/'; ?>"+getdid;
     console.log(resultUrl);

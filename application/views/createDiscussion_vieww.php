@@ -31,9 +31,9 @@
 			color: #B31B1B;
 		}
 		body {
-			font-family: Algerian;
+			font-family: "Times New Roman", Times, serif;
+			font-size: 1.5em;
 		}
-
 		</style>
   </head>
   <body style="overflow:scroll;">
@@ -133,7 +133,17 @@
 	        </p>
 	    </div>
 			<script type="text/javascript" class="init">
-
+			$(document).keydown(function(e) { 
+				if (e.keyCode == 27) { 
+					$('.modal-backdrop').remove();
+					$("#postBody").val("");
+					$("#postBody-error").hide();
+					$(".error").removeClass(".my-error-class");
+					$('.submitBtn').attr("enabled","enabled");
+					$('#myModal').modal('hide');
+					$('#newModal').modal('hide');
+				} 
+			});
 			$(document).ready(function(){
 				$("#home").click(function(){
 					window.location.href = '<?php echo base_url() ?>';
@@ -192,7 +202,8 @@
 				 });
 			 });
 			 //this method submits the newly created discussion and returns to the discussion details page.
- 			function submitDiscussionForm(){
+ 			function submitDiscussionForm(e){
+				//e.preventDefault();
  					var reg = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
  					//var cwid = $('#ccwid').val();
  					var category = $('#category').val();
@@ -246,6 +257,7 @@
  										//	$(document).on('hidden.bs.modal','#newModal', function () {
  								//});
  							}
+							
  						});
  					}
  				}

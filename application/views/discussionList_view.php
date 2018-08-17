@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Marist Discussion Forums</title>
+  <title>Redfoxes Forums</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
@@ -22,7 +22,8 @@
     position:relative;
   }
   body {
-    font-family: Algerian;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 1.5em;
   }
   th { font-size: 18px; }
   td { font-size: 16px; }
