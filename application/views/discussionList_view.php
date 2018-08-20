@@ -55,7 +55,7 @@
             <div>
               <tr>
                 <td><a id="anchorid" href="javascript:fetchList('<?php echo base_url().'discussion/discussionDetails/'.$result->d_id; ?>')"><?php echo ucfirst($result->d_title); ?></a></td>
-                <td><?php echo ucfirst($result->username); ?></td>
+                <td><?php echo ucwords($result->username); ?></td>
                 <td><?php echo $result->category; ?></td>
                 <td><?php echo $result->age; ?></td>
                 <td class="hidden-xs hidden-sm hidden-md hidden-lg"><input type="hidden" id="d_id" name= "d_id" value ="<?php echo (isset($result->d_id))?$result->d_id:'';?>" required="required" /></td>

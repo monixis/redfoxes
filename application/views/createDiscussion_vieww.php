@@ -228,6 +228,16 @@
  							$('#ds_body').focus();
  							return false;
  					}else{
+						var url1 = /(^|&lt;|\s)(www\..+?\..+?)(\s|&gt;|$)/g,
+        					url2 = /(^|&lt;|\s)(((https?|ftp):\/\/|mailto:).+?)(\s|&gt;|$)/g;
+
+					        var html = $.trim(ds_body);
+					        if (html) {
+					            html = html
+						                .replace(url1, '$1<a style="color:blue; text-decoration:underline;" target="_blank"  href="http://$2">$2</a>$3')
+						                .replace(url2, '$1<a style="color:blue; text-decoration:underline;" target="_blank"  href="$2">$2</a>$5');
+					        }
+					        ds_body = html;
  						//alert("in else");
  							$.ajax({
  									type:'POST',
@@ -276,6 +286,17 @@
 							$('#postBody').focus();
 							return false;
 					}else{
+						var url1 = /(^|&lt;|\s)(www\..+?\..+?)(\s|&gt;|$)/g,
+        					url2 = /(^|&lt;|\s)(((https?|ftp):\/\/|mailto:).+?)(\s|&gt;|$)/g;
+
+					        var html = $.trim(pbody);
+					        if (html) {
+					            html = html
+						                .replace(url1, '$1<a style="color:blue; text-decoration:underline;" target="_blank"  href="http://$2">$2</a>$3')
+						                .replace(url2, '$1<a style="color:blue; text-decoration:underline;" target="_blank"  href="$2">$2</a>$5');
+					        }
+					        pbody = html;
+
 						//console.log("finally in else");
 							$.ajax({
 									type:'POST',

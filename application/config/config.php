@@ -23,8 +23,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://library.marist.edu/redfoxes/';
-//$config['base_url'] = 'http://dev.library.marist.edu/redv1/';
+//$config['base_url'] = 'http://library.marist.edu/redfoxes/';
+$config['base_url'] = 'http://dev.library.marist.edu/redfoxes/';
 /*
 |--------------------------------------------------------------------------
 | Index File
