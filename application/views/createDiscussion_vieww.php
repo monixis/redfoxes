@@ -44,6 +44,7 @@
 
 			<!--<button type="button" class="btn btn-primary" id="newDiscussion" name="newDiscussion" data-toggle="modal" data-target="#newModal" style="margin-left:0px; margin-bottom:0px;">Start a new Discussion</button>-->
 			<a href="https://login.marist.edu/cas/logout"><button style="float: right;margin-left:14px;" id="logout" type="reset" class="btn btn-primary" style="color:#fff;"><span class="glyphicon glyphicon-log-out"></span> Logout</button></a>
+			<a href="http://library.marist.edu" target="_new"><button style="float:right; margin-left: 15px;" id="homepageLink" class="btn btn-primary"><span class="glyphicon glyphicon-log-out"></span>Library Homepage</button></a>
 			<button style="float: right;" id="home" class="btn btn-primary" style="color:#fff;"><span class="glyphicon glyphicon-home"></span> Home</button>
 		</div>
 		<div class="container fluid" id="cview">
