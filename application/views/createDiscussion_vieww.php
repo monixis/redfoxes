@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<title><?php echo $title; ?></title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link rel="stylesheet" href="./css/redfox.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
@@ -37,16 +37,29 @@
 		</style>
   </head>
   <body style="overflow:scroll;">
-		<div id="navi"  class="container fluid" style="margin-bottom: 30px;">
+		<div id="navi"  class="container fluid">
 			<br /><br />
+<div class="row">
+<div class="col-lg-8 col-md-6 col-sm-4 col-xs-12">
+			<img src="./assets/RedfoxForum.png" style="width:230px;height:100px;" class="img-fluid" alt="RedFoxes Forum">		        			
+</div>
+<div class="col-lg-4 col-md-6 col-sm-8 col-xs-12">
 
-			<button type="button" class="btn btn-primary" id="newDiscussion" name="newDiscussion" data-toggle="modal" data-target="#newModal" style="margin-left:14px; margin-bottom:10px;">Start a new Discussion</button>
-
+<br />
+<button style="float: left;margin-left: 15px" id="home" class="btn btn-primary" style="color:#fff;"><span class="glyphicon glyphicon-home"></span> Home</button>
+<a href="http://library.marist.edu" target="_new"><button style="float:left; margin-left: 15px;" id="homepageLink" class="btn btn-primary"><span class="glyphicon glyphicon-home"></span> Library Home</button></a>
+<a href="https://login.marist.edu/cas/logout"><button style="float: left;margin-left:14px;" id="logout" type="reset" class="btn btn-primary" style="color:#fff;"><span class="glyphicon glyphicon-log-out"></span> Logout</button></a>
+</div>
+</div>
+<br /><p style="font-size:12px;"><b>A Discussion Forum for Marist International Students. Please start a new discussion or reply to questions and help your fellow students.</b></p>
+<div class="row">
+<div class="col-lg-8 col-md-6 col-xs-4">
+<button type="button" class="btn btn-primary" id="newDiscussion" name="newDiscussion" data-toggle="modal" data-target="#newModal">Start a new Discussion</button>
+</div>
+</div>
+</div>
 			<!--<button type="button" class="btn btn-primary" id="newDiscussion" name="newDiscussion" data-toggle="modal" data-target="#newModal" style="margin-left:0px; margin-bottom:0px;">Start a new Discussion</button>-->
-			<a href="https://login.marist.edu/cas/logout"><button style="float: right;margin-left:14px;" id="logout" type="reset" class="btn btn-primary" style="color:#fff;"><span class="glyphicon glyphicon-log-out"></span> Logout</button></a>
-			<a href="http://library.marist.edu" target="_new"><button style="float:right; margin-left: 15px;" id="homepageLink" class="btn btn-primary"><span class="glyphicon glyphicon-log-out"></span>Library Homepage</button></a>
-			<button style="float: right;" id="home" class="btn btn-primary" style="color:#fff;"><span class="glyphicon glyphicon-home"></span> Home</button>
-		</div>
+			
 		<div class="container fluid" id="cview">
 
 				<?php if($username == ''){ ?>
@@ -65,7 +78,6 @@
 
 				<div id="ddetails"></div>
 				<div id="ddetails1"></div>
-				<div id="casdata" class="container fluid"></div>
 				<div id="disclist" name="disclist"></div>
 				<div id="dlist" style="float:center" class="col-md-9 fluid"></div>
 				<div id="newDisc" class="form-horizontal"></div>
@@ -111,8 +123,9 @@
 								    </div>
 									</div>
 									<div class="modal-footer">
-				            <button style="background-color:#333;color:#fff;" type="submit" class="btn btn-dark" onclick="submitDiscussionForm()"><?php echo $this->lang->line('common_form_elements_go');?></button>
-				            <button style="background-color:#333;color:#fff;" type="button" class="btn btn-dark" data-dismiss="modal" id="cancel" name="cancel">Close</button>
+				            <button type="submit" class="btn btn-primary submitBtn" onclick="submitDiscussionForm()"><?php echo $this->lang->line('common_form_elements_go');?></button>
+				            <button type="button" class="btn btn-primary submitBtn" data-dismiss="modal" id="cancel" name="cancel">Close</button>
+					<br /><br /><span style="float:left;"><b>*This forum is being monitored and moderated by Marist Library Staffs.</b></span>
 				          </div>
 								</form>
 								<!--<input type="text" name="ds_num" class="form-control" id="ds_num" value="<?php //echo mt_rand(); ?>" />-->

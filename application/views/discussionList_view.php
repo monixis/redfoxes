@@ -33,7 +33,7 @@
 <?php @session_start();//echo form_open(base_url().'Discussion/discussionDetails','role="form"'); ?>
 <div>
   <form name="dview" id="dview" method="post" class="form-group" style="width:100%;" action="<?php echo base_url().'discussion/discussionDetails/'; ?>">
-    <div id="new-search-area" class="new-search-area container container-fluid" style="width: 100%;"></div><br />
+    <div id="new-search-area" class="new-search-area container container-fluid" style="width: 100%;"></div>
     <div id="new-drop-area" class="new-drop-area container container-fluid" style="width: 100%;"></div>
       <!--div-->
         <table id="tabledata" class="table table-responsive" style="border-bottom:1px solid" cellspacing="0" width="100%">

@@ -126,6 +126,7 @@
           } 
           ?>
             <button style="color:#fff;" type="button" class="btn btn-primary" data-dismiss="modal" id="postcancel" name="postcancel" onclick="commentclose()">Close</button>
+<br /><br /><span style="float:left;"><b>*This forum is being monitored and moderated by Marist Library Staffs.</b></span>
           </div>
 
         </div>
