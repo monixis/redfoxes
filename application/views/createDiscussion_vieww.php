@@ -266,15 +266,16 @@
  									success:function(msg){
  											if(msg == 'ok'){
  													//$('#ccwid').val('');
- 													$('#category').val('');
- 													$('#ds_title').val('');
- 													$('#ds_body').val('');
+ 													
  													$('.statusMsg').html('<span style="color:green;">Thanks for contacting us, we\'ll get back to you soon.</p>');
  											}else{
  													$('.statusMsg').html('<span style="color:red;">Some problem occurred, please try again.</span>');
  											}
  											$('.submitBtn').removeAttr("disabled");
  											$('.modal-body').css('opacity', '');
+											$('#category').val('');
+											$('#ds_title').val('');
+											$('#ds_body').val('');
  											$('#newModal').modal('hide');
  											$('.modal-backdrop').remove();
  											fetchDiscussion('<?php echo base_url()?>'+'discussion/search_discussion/'+ds_num);
